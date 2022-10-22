@@ -1,16 +1,10 @@
 package com.miao.util;
-
+import cn.hutool.core.util.StrUtil;
 /**
  * @author Dhx_
  * @className RegexUtils
  * @description TODO
  * @date 2022/10/22 16:43
- */
-
-import cn.hutool.core.util.StrUtil;
-
-/**
- * @author 虎哥
  */
 public class RegexUtils {
     /**
@@ -50,7 +44,7 @@ public class RegexUtils {
      * @return true:符合，false：不符合
      */
     public static boolean isUserAccountInvalid(String code) {
-        return mismatch(code, RegexPatterns.USER_NAME_REGEX);
+        return mismatch(code, RegexPatterns.USER_ACCOUNT_REGEX);
     }
 
     /**

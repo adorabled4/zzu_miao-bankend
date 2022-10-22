@@ -25,9 +25,9 @@ public abstract class RegexPatterns {
     public static final String VERIFY_CODE_REGEX = "^[a-zA-Z\\d]{6}$";
 
     /**
-     * 用户名正则
+     * 账户名正则 : 4-16位字母,数字,汉字,下划线 其中两个汉字是可以注册成功的,表示4个字符
      */
-    public static final String USER_NAME_REGEX= "[A-Za-z0-9_\\-\\u4e00-\\u9fa5]+";
+    public static final String USER_ACCOUNT_REGEX= "^([\\u4e00-\\u9fa5]{2,4})|([A-Za-z0-9_]{4,16})|([a-zA-Z0-9_\\u4e00-\\u9fa5]{3,16})$";
 
     /**
      * 学号正则

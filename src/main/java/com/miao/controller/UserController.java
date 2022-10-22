@@ -1,7 +1,7 @@
 package com.miao.controller;
 
 import com.miao.DTO.Result;
-import com.miao.request.UserRegisterRequest;
+import com.miao.DTO.UserRegisterDTO;
 import com.miao.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Dhx_
@@ -27,7 +26,7 @@ public class UserController {
     UserService userService;
 
     /**
-     * 通过验证码登录
+     * 发送验证码
      * @param phone 手机号
      */
     @PostMapping("/code")
@@ -36,12 +35,28 @@ public class UserController {
     }
 
 
+    /**
+     * 注册功能
+     * @param userRegisterDTO 封装信息到userRegisterDTO
+     * @return
+     */
     @PostMapping("/register")
-    public Result register(UserRegisterRequest userRegisterRequest){
-        String userAccount=userRegisterRequest.getUserAccount();
-        String userPassword = userRegisterRequest.getUserPassword();
-        String checkPassword = userRegisterRequest.getCheckPassword();
-        String stuCode=userRegisterRequest.getStuCode();
+    public Result register(UserRegisterDTO userRegisterDTO){
+        String userAccount=userRegisterDTO.getUserAccount();
+        String userPassword = userRegisterDTO.getUserPassword();
+        String checkPassword = userRegisterDTO.getCheckPassword();
+        String stuCode=userRegisterDTO.getStuCode();
         return userService.register(userAccount,userPassword,checkPassword,stuCode);
+    }
+
+    /**
+     * 普通登录 输入用户名以及密码登录
+     * @param userAccount
+     * @param userPassword
+     * @return
+     */
+    @PostMapping("/login")
+    public Result login(@RequestParam("userAccount")String userAccount,@RequestParam("userPassword")String userPassword){
+        return userService.login(userAccount,userPassword);
     }
 }

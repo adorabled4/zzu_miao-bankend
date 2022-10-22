@@ -8,4 +8,6 @@ package com.miao.util;
  */
 public class RedisConstant {
     public static final String LOGIN_CODE_KEY= "login:code:";
+    public static final String LOGIN_TOKEN_KEY = "login:token:";
+    public static final Long CACHE_SHOP_TTL = 30L;
 }

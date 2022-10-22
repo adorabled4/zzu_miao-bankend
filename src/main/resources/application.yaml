@@ -20,11 +20,14 @@ spring:
         min-idle: 1
         time-between-eviction-runs: 10s
       shutdown-timeout: 5000
+    database: 1
+
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
 
 mybatis-plus:
-  mapper-locations: [ classpath: mappers/*xml ]
+  mapper-locations:
+    classpath: mappers/*xml
   type-aliases-package: com.miao.domain
 
   global-config:
