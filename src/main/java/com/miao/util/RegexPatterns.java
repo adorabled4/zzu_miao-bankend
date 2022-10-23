@@ -30,8 +30,8 @@ public abstract class RegexPatterns {
     public static final String USER_ACCOUNT_REGEX= "^([\\u4e00-\\u9fa5]{2,4})|([A-Za-z0-9_]{4,16})|([a-zA-Z0-9_\\u4e00-\\u9fa5]{3,16})$";
 
     /**
-     * 学号正则
+     * 学号正则   ^2012350101(?:0[1-9]|[1-2]\d|3[0-2])$
      */
-    public static final String STUDENT_CODE_REGEX="^2012350101(?:0[1-9]|[1-2]\\d|3[0-2])$";
+    public static final String STUDENT_CODE_REGEX="^\\d{12,12}$";
 }
 

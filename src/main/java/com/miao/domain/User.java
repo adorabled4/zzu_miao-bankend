@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * 
@@ -80,6 +81,10 @@ public class User implements Serializable {
     private Date updateTime;
 
     /**
+     * 是否是管理员
+     */
+    private int isAdmin;
+    /**
      * 是否注销 1 注销
      */
     @TableLogic
@@ -89,52 +94,16 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        User other = (User) that;
-        return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
-            && (this.getUserAccount() == null ? other.getUserAccount() == null : this.getUserAccount().equals(other.getUserAccount()))
-            && (this.getUserPassword() == null ? other.getUserPassword() == null : this.getUserPassword().equals(other.getUserPassword()))
-            && (this.getStuCode() == null ? other.getStuCode() == null : this.getStuCode().equals(other.getStuCode()))
-            && (this.getSchool() == null ? other.getSchool() == null : this.getSchool().equals(other.getSchool()))
-            && (this.getAvatarUrl() == null ? other.getAvatarUrl() == null : this.getAvatarUrl().equals(other.getAvatarUrl()))
-            && (this.getGender() == null ? other.getGender() == null : this.getGender().equals(other.getGender()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
-            && (this.getUserStatus() == null ? other.getUserStatus() == null : this.getUserStatus().equals(other.getUserStatus()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()));
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getIsAdmin() == user.getIsAdmin() && Objects.equals(getUserId(), user.getUserId()) && Objects.equals(getUserName(), user.getUserName()) && Objects.equals(getUserAccount(), user.getUserAccount()) && Objects.equals(getUserPassword(), user.getUserPassword()) && Objects.equals(getStuCode(), user.getStuCode()) && Objects.equals(getSchool(), user.getSchool()) && Objects.equals(getAvatarUrl(), user.getAvatarUrl()) && Objects.equals(getGender(), user.getGender()) && Objects.equals(getPhone(), user.getPhone()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getUserStatus(), user.getUserStatus()) && Objects.equals(getCreateTime(), user.getCreateTime()) && Objects.equals(getUpdateTime(), user.getUpdateTime()) && Objects.equals(getIsDelete(), user.getIsDelete());
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
-        result = prime * result + ((getUserAccount() == null) ? 0 : getUserAccount().hashCode());
-        result = prime * result + ((getUserPassword() == null) ? 0 : getUserPassword().hashCode());
-        result = prime * result + ((getStuCode() == null) ? 0 : getStuCode().hashCode());
-        result = prime * result + ((getSchool() == null) ? 0 : getSchool().hashCode());
-        result = prime * result + ((getAvatarUrl() == null) ? 0 : getAvatarUrl().hashCode());
-        result = prime * result + ((getGender() == null) ? 0 : getGender().hashCode());
-        result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
-        result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
-        result = prime * result + ((getUserStatus() == null) ? 0 : getUserStatus().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
-        return result;
+        return Objects.hash(getUserId(), getUserName(), getUserAccount(), getUserPassword(), getStuCode(), getSchool(), getAvatarUrl(), getGender(), getPhone(), getEmail(), getUserStatus(), getCreateTime(), getUpdateTime(), getIsAdmin(), getIsDelete());
     }
 
     @Override

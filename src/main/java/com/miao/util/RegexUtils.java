@@ -64,4 +64,13 @@ public class RegexUtils {
         }
         return !str.matches(regex);
     }
+
+    /**
+     *是否是无效的学号格式
+     * @param stuCode 要校验的密码
+     * @return true:符合，false：不符合
+     */
+    public static boolean isStuCodeInvalid(String stuCode) {
+        return mismatch(stuCode, RegexPatterns.STUDENT_CODE_REGEX);
+    }
 }

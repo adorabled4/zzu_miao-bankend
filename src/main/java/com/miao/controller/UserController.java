@@ -2,6 +2,7 @@ package com.miao.controller;
 
 import com.miao.DTO.Result;
 import com.miao.DTO.UserRegisterDTO;
+import com.miao.common.BaseResponse;
 import com.miao.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,7 @@ public class UserController {
      * @param phone 手机号
      */
     @PostMapping("/code")
-    public Result sendCode(@RequestParam("phone")String phone){
+    public BaseResponse sendCode(@RequestParam("phone")String phone){
         return userService.sendCode(phone);
     }
 
@@ -41,7 +42,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/register")
-    public Result register(UserRegisterDTO userRegisterDTO){
+    public BaseResponse register(UserRegisterDTO userRegisterDTO){
         String userAccount=userRegisterDTO.getUserAccount();
         String userPassword = userRegisterDTO.getUserPassword();
         String checkPassword = userRegisterDTO.getCheckPassword();
@@ -56,7 +57,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public Result login(@RequestParam("userAccount")String userAccount,@RequestParam("userPassword")String userPassword){
+    public BaseResponse login(@RequestParam("userAccount")String userAccount,@RequestParam("userPassword")String userPassword){
         return userService.login(userAccount,userPassword);
     }
 }
