@@ -1,16 +1,22 @@
 package com.miao.controller;
 
-import com.miao.DTO.Result;
+import cn.hutool.core.bean.BeanUtil;
+import com.miao.DTO.UserDTO;
 import com.miao.DTO.UserRegisterDTO;
+import com.miao.Exception.BusinessException;
 import com.miao.common.BaseResponse;
+import com.miao.common.ErrorCode;
+import com.miao.domain.User;
 import com.miao.service.UserService;
+import com.miao.util.ResultUtil;
+import com.miao.util.UserHolder;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author Dhx_
@@ -26,23 +32,24 @@ public class UserController {
     @Resource
     UserService userService;
 
+    @Resource
+    StringRedisTemplate stringRedisTemplate;
     /**
      * 发送验证码
      * @param phone 手机号
      */
     @PostMapping("/code")
-    public BaseResponse sendCode(@RequestParam("phone")String phone){
+    public BaseResponse<String> sendCode(@RequestParam("phone")String phone){
         return userService.sendCode(phone);
     }
-
 
     /**
      * 注册功能
      * @param userRegisterDTO 封装信息到userRegisterDTO
-     * @return
+     * @return 返回用户的id
      */
     @PostMapping("/register")
-    public BaseResponse register(UserRegisterDTO userRegisterDTO){
+    public BaseResponse<Long> register(UserRegisterDTO userRegisterDTO){
         String userAccount=userRegisterDTO.getUserAccount();
         String userPassword = userRegisterDTO.getUserPassword();
         String checkPassword = userRegisterDTO.getCheckPassword();
@@ -52,12 +59,71 @@ public class UserController {
 
     /**
      * 普通登录 输入用户名以及密码登录
-     * @param userAccount
-     * @param userPassword
-     * @return
+     * @param userAccount 账户
+     * @param userPassword 密码
+     * @return 返回登录用户基本信息
      */
     @PostMapping("/login")
-    public BaseResponse login(@RequestParam("userAccount")String userAccount,@RequestParam("userPassword")String userPassword){
+    public BaseResponse<UserDTO> login(@RequestParam("userAccount")String userAccount, @RequestParam("userPassword")String userPassword){
         return userService.login(userAccount,userPassword);
+    }
+
+    /**
+     * 获取当前的用户并返回
+     * @return 返回当前用户基本信息
+     */
+    @GetMapping("/current")
+    public BaseResponse<UserDTO> getCurrent(){
+        return ResultUtil.success(UserHolder.getUser());
+    }
+
+    /**
+     * 根据id 查询用户信息
+     * @param id  用户id
+     * @return UserDTO 返回用户基本信息
+     */
+    @GetMapping("/{id}")
+    public BaseResponse<UserDTO> queryUserById(@PathVariable("id")Long id){
+        return userService.queryUserById(id);
+    }
+
+    /**
+     * 查询用户详细信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/info/{id}")
+    public BaseResponse<User> queryUserInfoById(@PathVariable("id")Long id){
+        return userService.queryUserInfoById(id);
+    }
+
+    /**
+     * 根据关键词查询用户
+     * @param userName
+     * @return
+     */
+    @GetMapping("/search")
+    public BaseResponse<List<UserDTO>> searchUsers(String userName){
+        return userService.searchUsers(userName);
+    }
+
+    /**
+     * 退出登录
+     * @param request
+     * @return
+     */
+    @PostMapping("/logout")
+    public BaseResponse<Long> logout(HttpServletRequest request){
+        return userService.logout(request);
+    }
+
+    /**
+     * 根据id 删除用户
+     * @param id
+     * @return 返回被删除用户的 id
+     */
+    @PostMapping("/delete")
+    public  BaseResponse<Long> deleteUserById(@RequestParam("id")Long id){
+        return userService.deleteUserById(id);
     }
 }
