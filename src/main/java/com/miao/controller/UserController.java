@@ -1,11 +1,9 @@
 package com.miao.controller;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.miao.DTO.UserDTO;
+import com.miao.DTO.UserInfoDTO;
 import com.miao.DTO.UserRegisterDTO;
-import com.miao.Exception.BusinessException;
 import com.miao.common.BaseResponse;
-import com.miao.common.ErrorCode;
 import com.miao.domain.User;
 import com.miao.service.UserService;
 import com.miao.util.ResultUtil;
@@ -21,7 +19,7 @@ import java.util.List;
 /**
  * @author Dhx_
  * @className UserController
- * @description TODO
+ * @description TODO用户控制层
  * @date 2022/10/22 16:20
  */
 @Slf4j
@@ -64,7 +62,7 @@ public class UserController {
      * @return 返回登录用户基本信息
      */
     @PostMapping("/login")
-    public BaseResponse<UserDTO> login(@RequestParam("userAccount")String userAccount, @RequestParam("userPassword")String userPassword){
+    public BaseResponse<UserDTO> login(@RequestParam("account")String userAccount, @RequestParam("password")String userPassword){
         return userService.login(userAccount,userPassword);
     }
 
@@ -88,12 +86,12 @@ public class UserController {
     }
 
     /**
-     * 查询用户详细信息
+     * 查询用户详细信息 => 展示用户资料
      * @param id
      * @return
      */
     @GetMapping("/info/{id}")
-    public BaseResponse<User> queryUserInfoById(@PathVariable("id")Long id){
+    public BaseResponse<UserInfoDTO> queryUserInfoById(@PathVariable("id")Long id){
         return userService.queryUserInfoById(id);
     }
 
@@ -103,7 +101,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/search")
-    public BaseResponse<List<UserDTO>> searchUsers(String userName){
+    public BaseResponse<List<UserDTO>> searchUsers(@RequestParam("username")String userName){
         return userService.searchUsers(userName);
     }
 
@@ -125,5 +123,15 @@ public class UserController {
     @PostMapping("/delete")
     public  BaseResponse<Long> deleteUserById(@RequestParam("id")Long id){
         return userService.deleteUserById(id);
+    }
+
+    /**
+     * 编辑资料, 不允许编辑 account
+     * @param userInfoDTO  包含了用户编辑信息的参数
+     * @return 返回用户的账户
+     */
+    @PostMapping("/updateUserInfo")
+    public BaseResponse<String> updateUserInfo(UserInfoDTO userInfoDTO){
+        return userService.updateUserInfo(userInfoDTO);
     }
 }

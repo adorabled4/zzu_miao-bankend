@@ -37,3 +37,16 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 
+# 这些配置在腾讯云控制台都可查到（使用时替换为你自己的）
+# 腾讯云的SecretId（永久的，可在控制台开启或关闭）
+tencent:
+  SecretId: AKIDhSrAKOZdZK5nw1BRYYQdllbIvU4Vnwzv
+  # 腾讯云的SecretKey（永久的，可在控制台开启或关闭）
+  SecretKey: sbfZKvMF5e6O4iEcr6ED4pRzRn1Z5ZxG
+  # 腾讯云的bucket (存储桶)
+  bucket: zzu-miao-1025-1308522872
+  # 腾讯云的region(bucket所在地区)
+  regionName: ap-nanjing
+  # 腾讯云的访问基础链接:
+  baseUrl: https://zzu-miao-1025-1308522872.cos.ap-nanjing.myqcloud.com/
+

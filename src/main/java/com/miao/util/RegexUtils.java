@@ -46,6 +46,15 @@ public class RegexUtils {
     public static boolean isUserAccountInvalid(String code) {
         return mismatch(code, RegexPatterns.USER_ACCOUNT_REGEX);
     }
+    /**
+     * 是否是无效用户名格式
+     *
+     * @param code 要校验的账户名
+     * @return true:符合，false：不符合
+     */
+    public static boolean isUserNameInvalid(String code) {
+        return mismatch(code, RegexPatterns.USER_NAME_REGEX);
+    }
 
     /**
      * 是否是无效密码格式
