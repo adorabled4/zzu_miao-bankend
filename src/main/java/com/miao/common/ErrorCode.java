@@ -9,7 +9,7 @@ package com.miao.common;
 public enum ErrorCode {
     SUCCESS(0,"ok",""),
     //HTTP状态码本身就是500，为什么500，因为你的业务里面抛异常 , 但是不应该让前端出现500，因为我们刚刚自己定义了一个业务异常，它应该返回40000
-    PARAMS_ERROR(40000,"请求参数为空",""),
+    PARAMS_ERROR(40000,"请求参数错误",""),
     NULL_ERROR(40001,"请求数据为空",""),
     NOT_LOGIN(40100,"未登录",""),
     NO_AUTH(40101,"无权限",""),

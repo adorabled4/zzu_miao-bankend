@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tiny.cloud/1/ubo1qbw1ajg3o7qid7btw58tvxay3n7pccrwufntqxuqvhnd/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<!--  <script th:src="@{~/tinymce/js/tinymce/tinymce.min.js}" referrerpolicy="origin"></script>-->
+  <script th:src="@{~/js/tinyInit.js}"></script>
+</head>
+<body>
+<h1>TinyMCE Quick Start Guide</h1>
+
+  <div>
+    <header>
+      <h1>Simple example</h1>
+    </header>
+  </div>
+  <div>
+    <form name="mdEditorForm" method="post" th:action="@{/test/file}"  enctype="multipart/form-data">
+      标题： <input type="text" name="topicTitle">
+         <textarea name="topicContent" id="editable"> </textarea>
+      <input  type="submit" value="提交" onclick="submitTopic()"/>
+    </form>
+  </div>
+
+</body>
+</html>
+<!--
+代码块语言
+  {text: 'CSS', value: 'css'},
+  {text: 'C#', value: 'csharp'},
+  {text: 'Ruby', value: 'ruby'},
+
+其他配置
+a_plugin_option: true,
+a_configuration_option: 400,
+toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent'
+
+inline: true  表示是否显示, 如果不点击就是普通的文本, 点击了才是编辑器 => 那么对于编写帖子就是false
+
+
+注册账户移除 提示
+  <script src="https://cdn.tiny.cloud/1/ubo1qbw1ajg3o7qid7btw58tvxay3n7pccrwufntqxuqvhnd/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+ -->

@@ -11,27 +11,34 @@ import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.region.Region;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.List;
 
 /**
- * @author Dhx_
- * @className CosClientUtil 创建cosClient实例
- * @description TODO
- * @date 2022/10/25 17:36
- */
+* @author Dhx_
+* @className CosClientUtil 创建cosClient实例
+* @description TODO
+* @date 2022/10/25 17:36
+*/
+
+@Component
 public class CosClientUtil {
-    @Value("${secretId}")
-    public static String secretId;
-    @Value("${secretKey}")
-    public static String secretKey;
-    @Value("${region}")
-    public static String regionName;
-    @Value("${bucketName}")
-    public static String bucketName;
-    @Value("${baseUrl}")
-    public static String baseUrl;
+    @Value("${spring.redis.host}")
+    private String testValue;
+    @Value("${tencent.secretId:#{null}}")
+    private String secretId;
+    @Value("${tencent.secretKey:#{null}}")
+    private String secretKey;
+    @Value("${tencent.region:#{null}}")
+    private String regionName;
+    @Value("${tencent.bucket:#{null}}")
+    private String bucketName;
+    @Value("${tencent.baseUrl:#{null}}")
+    private String baseUrl;
 
     /**
      * 动物图片存储路径
@@ -40,13 +47,18 @@ public class CosClientUtil {
     public static final String AVATAR_FILE="avatar/";
     public static final String TOPIC_FILE="topic/";
 
+    public void testValue(){
+        System.out.println(testValue);
+    }
     /**
      * 获取实例
      * @return cosClient 实例
      */
-    public static COSClient getInstance(){
+    public COSClient getInstance(){
 // 1 初始化用户身份信息（secretId, secretKey）。
 // SECRETID和SECRETKEY请登录访问管理控制台 https://console.cloud.tencent.com/cam/capi 进行查看和管理
+        System.out.println(secretId);
+        System.out.println(secretKey);
         COSCredentials cred = new BasicCOSCredentials(secretId, secretKey);
 // 2 设置 bucket 的地域, COS 地域的简称请参照 https://cloud.tencent.com/document/product/436/6224
 // clientConfig 中包含了设置 region, https(默认 http), 超时, 代理等 set 方法, 使用可参见源码或者常见问题 Java SDK 部分。
@@ -65,7 +77,7 @@ public class CosClientUtil {
      * @param file 需要上传的文件
      * @return 返回文件的url
      */
-    public static String uploadFile(File file,String fileType){
+    public String uploadFile(File file,String fileType){
         //获取文件后缀
         String fileName = file.getName();
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
@@ -77,4 +89,5 @@ public class CosClientUtil {
         String url= baseUrl+ key;
         return url;
     }
+
 }

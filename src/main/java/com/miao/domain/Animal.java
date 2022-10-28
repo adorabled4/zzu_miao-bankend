@@ -30,6 +30,10 @@ public class Animal implements Serializable {
     private String species;
 
     /**
+     * 创建者
+     */
+    private Long createUserId;
+    /**
      * 动物图片
      */
     private String pictures;
@@ -39,6 +43,10 @@ public class Animal implements Serializable {
      */
     private Integer gender;
 
+    /**
+     * 动物介绍
+     */
+    private String content;
     /**
      * 出现地址
      */

@@ -1,6 +1,7 @@
 package com.miao;
 
 import cn.hutool.core.lang.UUID;
+import com.miao.util.CosClientUtil;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -12,9 +13,12 @@ import com.qcloud.cos.model.*;
 import com.qcloud.cos.region.Region;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @SpringBootTest
@@ -61,6 +65,22 @@ class ZzuMiaoApplicationTests {
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, localFile);
         PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
     }
-//    String[] uploadFileToCos(MultipartFile multipartFile){
-//    }
+
+    @Resource
+    CosClientUtil cosClientUtil;
+
+    @Test
+    public void cosClientTest() throws IOException {
+        String url = cosClientUtil.uploadFile(new File("C:\\Users\\lenovo\\Pictures\\Saved Pictures\\mallard_anas_platyrhynchos_drake_green_metallic_sparkle_bill_yellow-1362404.jpg"),
+                CosClientUtil.AVATAR_FILE);
+        System.out.println(url);
+    }
+    @Resource
+    StringRedisTemplate stringRedisTemplate;
+    @Test
+    public void Test() {
+        stringRedisTemplate.opsForValue().set("test","test");
+        String test = stringRedisTemplate.opsForValue().get("test");
+        System.out.println(test);
+    }
 }

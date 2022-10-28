@@ -4,10 +4,7 @@ import com.miao.DTO.UserDTO;
 import com.miao.common.BaseResponse;
 import com.miao.domain.User;
 import com.miao.service.AdminService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,7 +15,8 @@ import java.util.List;
  * @description TODO
  * @date 2022/10/24 22:28
  */
-@RestController("/admin")
+@RestController
+@RequestMapping("/admin")
 public class AdminController {
 
     @Resource

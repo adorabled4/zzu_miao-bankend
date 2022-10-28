@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="https://cdn.tiny.cloud/1/ubo1qbw1ajg3o7qid7btw58tvxay3n7pccrwufntqxuqvhnd/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
+    <!--  <script th:src="@{~/tinymce/js/tinymce/tinymce.min.js}" referrerpolicy="origin"></script>-->
+        <script th:src="@{~/js/tinyInit.js}"></script>
+</head>
+<body>
+<div>
+    <!--文章头部信息：标题，作者，最后更新日期，导航-->
+    <h2 style="margin: auto 0" th:text="${topicDTO.topicTitle}">帖子标题</h2>
+    <span style="float: left" th:text="${topicDTO.author}">帖子作者</span>
+    <!--文章主体内容-->
+        <textarea id="editable"  th:text="${topicDTO.topicContent}">
+        </textarea>
+</div>
+
+</body>
+</html>

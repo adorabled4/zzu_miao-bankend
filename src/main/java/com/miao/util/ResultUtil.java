@@ -21,6 +21,7 @@ public class ResultUtil {
         return new BaseResponse<T>(0,data,"ok","");
     }
 
+
     /**
      * 出现错误
      * @param errorCode

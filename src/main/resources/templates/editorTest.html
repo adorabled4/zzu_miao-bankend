@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" th:href="@{~/editormd/examples/css/style.css}" />
+    <link rel="stylesheet" th:href="@{~/editormd/css/editormd.css}" />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{~/editormd/css/editormd.preview.css}"/>
+    <script th:src="@{~/editormd/editormd.js}"></script>
+    <script th:src="@{~/editormd/examples/js/jquery.min.js}"></script>
+    <script th:src="@{~/editormd/editormd.min.js}"></script>
+    <script th:src="@{~/js/editor.js}"></script>
+</head>
+
+<body>
+<div id="layout">
+    <div>
+        <header>
+            <h1>Simple example</h1>
+        </header>
+    </div>
+    <div>
+        <form name="mdEditorForm">
+            <div>标题： <input type="text" name="topicTitle">
+            </div>
+            <div id="test-editormd">
+                <textarea name="topicContent" id="content" style="display:none;">
+                </textarea>
+<!--                不要换行-->
+            </div>
+        </form>
+    </div>
+</div>
+<!--<script th:src="@{../sta/editormd/examples/js/jquery.min.js}"></script>-->
+<!--<script th:src="@{/editormd/editormd.min.js}"></script>-->
+</body>
+</html>

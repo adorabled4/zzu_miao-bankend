@@ -1,12 +1,15 @@
 package com.miao.util;
 
 import ch.qos.logback.core.util.FileUtil;
+import com.miao.Exception.BusinessException;
+import com.miao.common.ErrorCode;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.channels.FileChannel;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Dhx_
@@ -15,6 +18,9 @@ import java.io.OutputStream;
  * @date 2022/10/25 22:47
  */
 public class MyFileUtil {
+
+    public static final String[]PICTURE_TYPES= new String[]{".jpg",".png",".jpeg", ".gif", ".bmp", ".webp",".GIF",".BMP",".WEBP",".JPG",".PNG","JPEG",};
+    public static final int MAX_SIZE= 20*1024*1000;
     /**
      * MultipartFile 转 File
      * @param file
@@ -59,5 +65,37 @@ public class MyFileUtil {
             File del = new File(file.toURI());
             del.delete();
         }
+    }
+
+    /**
+     * 检查图片是否符合规范 大小/类型
+     * @param file
+     * @return
+     */
+    public static boolean checkFile(File file) throws IOException {
+        String name = file.getName();
+        long fileSize = getFileSize(file);
+        if(fileSize>=MAX_SIZE){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR,"文件大小限制在20MB");
+        }
+        String suffix= name.substring(name.lastIndexOf("."));
+        for (String picture_type : PICTURE_TYPES) {
+            if(picture_type.equals(suffix)){
+                return true;
+            }
+        }
+        throw new BusinessException(ErrorCode.PARAMS_ERROR,"请上传图片类型文件");
+    }
+
+
+    /**
+     * @param file 文件
+     * @return 返回文件大小 byte
+     * @throws IOException
+     */
+    private static long getFileSize(File file) throws IOException {
+        FileInputStream fis = new FileInputStream(file);
+        FileChannel fc = fis.getChannel();
+        return fc.size();
     }
 }
