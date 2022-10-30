@@ -1,8 +1,12 @@
 HELP.md
 target/
+### application ###
+src/main/resources/application.yaml
+
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+
 
 ### STS ###
 .apt_generated
@@ -12,10 +16,9 @@ target/
 .settings
 .springBeans
 .sts4-cache
-### application ###
-!**src/main/resources/application.yaml
 
 ### IntelliJ IDEA ###
+.yaml
 .idea
 *.iws
 *.iml

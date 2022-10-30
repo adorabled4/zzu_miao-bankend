@@ -10,9 +10,11 @@ spring:
     server:
       port: 8080
   redis:
-    host: 192.168.204.129
+    #    host: 192.168.204.129
+    host: 82.157.176.239
     port: 6379
-    password: qwer
+#    password: qwer
+    password: woshidhx123
     lettuce:
       pool:
         max-active: 10
@@ -25,6 +27,13 @@ spring:
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
 
+  servlet:
+    multipart:
+      max-file-size: 20MB
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 mybatis-plus:
   mapper-locations:
     classpath: mappers/*xml
@@ -40,13 +49,12 @@ mybatis-plus:
 # 这些配置在腾讯云控制台都可查到（使用时替换为你自己的）
 # 腾讯云的SecretId（永久的，可在控制台开启或关闭）
 tencent:
-  SecretId: AKIDhSrAKOZdZK5nw1BRYYQdllbIvU4Vnwzv
+  secretId: AKIDhSrAKOZdZK5nw1BRYYQdllbIvU4Vnwzv
   # 腾讯云的SecretKey（永久的，可在控制台开启或关闭）
-  SecretKey: sbfZKvMF5e6O4iEcr6ED4pRzRn1Z5ZxG
+  secretKey: sbfZKvMF5e6O4iEcr6ED4pRzRn1Z5ZxG
   # 腾讯云的bucket (存储桶)
   bucket: zzu-miao-1025-1308522872
   # 腾讯云的region(bucket所在地区)
-  regionName: ap-nanjing
+  region: ap-nanjing
   # 腾讯云的访问基础链接:
   baseUrl: https://zzu-miao-1025-1308522872.cos.ap-nanjing.myqcloud.com/
-

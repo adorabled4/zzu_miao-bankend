@@ -25,6 +25,10 @@ public class Comment implements Serializable {
     private Long repliedId;
 
     /**
+     *  发布的用户的id
+     */
+    private Long userId;
+    /**
      * 评论内容, 注意这个不能为空
      */
     private String commentContent;

@@ -1,6 +1,8 @@
 package com.miao;
 
 import cn.hutool.core.lang.UUID;
+import com.miao.domain.Comment;
+import com.miao.service.CommentService;
 import com.miao.util.CosClientUtil;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -24,9 +26,8 @@ import java.util.List;
 @SpringBootTest
 class ZzuMiaoApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+    @Resource
+    CommentService commentService;
 
     @Test
     public void cosTest() {
@@ -82,5 +83,19 @@ class ZzuMiaoApplicationTests {
         stringRedisTemplate.opsForValue().set("test","test");
         String test = stringRedisTemplate.opsForValue().get("test");
         System.out.println(test);
+    }
+
+    /**
+     * mybatis-plus 会自动赋值id
+     */
+    @Test
+    public void saveTest() {
+        Comment comment=new Comment();
+        comment.setUserId(1L);
+        comment.setLikeCount(0);
+        comment.setRepliedId(15L);
+        comment.setCommentContent("这是一个评论!!!!!!!");
+        commentService.save(comment);
+        System.out.println(comment.getCommentId());
     }
 }
