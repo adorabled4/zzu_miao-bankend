@@ -50,7 +50,7 @@ public class UserController {
      */
     @PostMapping("/register")
     @ApiOperation("用户注册")
-    public BaseResponse<Long> register(UserRegisterDTO userRegisterDTO){
+    public BaseResponse<String> register(UserRegisterDTO userRegisterDTO){
         String userAccount=userRegisterDTO.getUserAccount();
         String userPassword = userRegisterDTO.getUserPassword();
         String checkPassword = userRegisterDTO.getCheckPassword();

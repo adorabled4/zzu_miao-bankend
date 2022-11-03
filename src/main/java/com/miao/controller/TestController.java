@@ -61,7 +61,6 @@ public class TestController {
     }
 
 
-
     @GetMapping("/showTiny/{id}")
     public String showTiny(@PathVariable("id") int id, Model model) {
         Topic topic = topicMapper.selectById(id);
@@ -97,9 +96,6 @@ public class TestController {
         map.put("location",url);
         return map;
     }
-
-
-
 
     @PostMapping("/addTopic")
     public String addTopic(TopicDTO topicDTO,Model model) {

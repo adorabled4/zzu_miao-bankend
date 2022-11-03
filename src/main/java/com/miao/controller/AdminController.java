@@ -5,6 +5,7 @@ import com.miao.domain.User;
 import com.miao.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -54,6 +55,7 @@ public class AdminController {
      */
     @ApiOperation("根据用户id删除用户")
     @PostMapping("/delete/{id}")
+    @ApiResponse(code = 200, message = "删除的用户的id")
     public BaseResponse<Long> deleteUserById(@PathVariable("id") Long id) {
         return adminService.deleteUserById(id);
     }

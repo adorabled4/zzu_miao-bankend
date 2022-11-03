@@ -27,7 +27,6 @@ public class Swagger2Config {
                 .apiInfo(adminApiInfo())
                 .groupName("com.zzu_miao")
                 .select()
-                //只显示admin下面的路径
                 .paths(Predicates.and(PathSelectors.regex("/.*")))
                 .build();
     }

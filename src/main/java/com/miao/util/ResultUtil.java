@@ -6,7 +6,7 @@ import com.miao.common.ErrorCode;
 /**
  * @author Dhx_
  * @className ResultUtil
- * @description TODO
+ * @description
  * @date 2022/10/23 22:04
  */
 public class ResultUtil {
@@ -18,7 +18,7 @@ public class ResultUtil {
      * @return
      */
     public static <T> BaseResponse<T> success(T data){
-        return new BaseResponse<T>(0,data,"ok","");
+        return new BaseResponse<T>(200,data,"ok","");
     }
 
 

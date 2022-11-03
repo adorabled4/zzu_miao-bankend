@@ -1,5 +1,6 @@
 package com.miao.controller;
 
+import com.miao.DTO.TopicDTO;
 import com.miao.common.BaseResponse;
 import com.miao.service.TopicService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,7 @@ public class TopicController {
     @Resource
     TopicService topicService;
     @GetMapping("{id}")
-    public BaseResponse getTopicInfo(@PathVariable("id")Long topicId){
-
+    public BaseResponse<TopicDTO> getTopicInfo(@PathVariable("id")Long topicId){
         return topicService.queryTopicById(topicId);
     }
 
