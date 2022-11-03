@@ -1,9 +1,10 @@
 package com.miao.controller;
 
-import com.miao.DTO.UserDTO;
 import com.miao.common.BaseResponse;
 import com.miao.domain.User;
 import com.miao.service.AdminService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,6 +16,8 @@ import java.util.List;
  * @description TODO
  * @date 2022/10/24 22:28
  */
+
+@Api(value = "用用于管理员管理后台")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -29,6 +32,7 @@ public class AdminController {
      * @return
      */
     @GetMapping("/queryInfoById/{id}")
+    @ApiOperation("根据用户id查看用户详情")
     public BaseResponse<User> queryInfoById(@PathVariable("id") Long id) {
         return adminService.queryInfoById(id);
     }
@@ -38,8 +42,9 @@ public class AdminController {
      * @return
      */
     @GetMapping("/list")
-    public BaseResponse<List<UserDTO>> list() {
-        return adminService.list();
+    @ApiOperation("查看用户基本信息列表")
+    public BaseResponse<List<User>> list() {
+        return adminService.listUserBasicInfo();
     }
 
     /**
@@ -47,6 +52,7 @@ public class AdminController {
      * @param id
      * @return
      */
+    @ApiOperation("根据用户id删除用户")
     @PostMapping("/delete/{id}")
     public BaseResponse<Long> deleteUserById(@PathVariable("id") Long id) {
         return adminService.deleteUserById(id);

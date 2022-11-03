@@ -3,11 +3,7 @@ package com.miao.controller;
 import com.miao.common.BaseResponse;
 import com.miao.domain.Comment;
 import com.miao.service.CommentService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -27,10 +23,15 @@ public class CommentController {
     public BaseResponse releaseComment(@PathVariable("id")Long topicId ,Comment comment){
         return commentService.releaseComment(topicId,comment);
     }
+//
+//    @PostMapping("/comment/{id}")
+//    public BaseResponse replyComment(@PathVariable("id")Long repliedCommentId ,Comment comment){
+//        return commentService.replyComment(repliedCommentId,comment);
+//    }
 
-    @PostMapping("/comment/{id}")
-    public BaseResponse replyComment(@PathVariable("id")Long repliedCommentId ,Comment comment){
-        return commentService.replyComment(repliedCommentId,comment);
+    @GetMapping("/{id}")
+    public BaseResponse queryCommentsByTopicId(@PathVariable("id")Long topicId){
+        return  commentService.queryCommentsByTopicId(topicId);
     }
 
 }

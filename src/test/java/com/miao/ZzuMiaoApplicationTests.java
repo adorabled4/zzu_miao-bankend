@@ -2,21 +2,22 @@ package com.miao;
 
 import cn.hutool.core.lang.UUID;
 import com.miao.domain.Comment;
+import com.miao.domain.User;
 import com.miao.service.CommentService;
+import com.miao.service.UserService;
 import com.miao.util.CosClientUtil;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
 import com.qcloud.cos.auth.COSCredentials;
-import com.qcloud.cos.exception.CosClientException;
-import com.qcloud.cos.exception.CosServiceException;
 import com.qcloud.cos.http.HttpProtocol;
-import com.qcloud.cos.model.*;
+import com.qcloud.cos.model.Bucket;
+import com.qcloud.cos.model.PutObjectRequest;
+import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.region.Region;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -29,6 +30,8 @@ class ZzuMiaoApplicationTests {
     @Resource
     CommentService commentService;
 
+    @Resource
+    UserService userService;
     @Test
     public void cosTest() {
 // 1 初始化用户身份信息（secretId, secretKey）。
@@ -97,5 +100,16 @@ class ZzuMiaoApplicationTests {
         comment.setCommentContent("这是一个评论!!!!!!!");
         commentService.save(comment);
         System.out.println(comment.getCommentId());
+    }
+
+    @Test
+    public void getest(){
+        userService.register("adorabled4","123456qwer","123456qwer");
+    }
+
+    @Test
+    public void UserTest(){
+        User userServiceById = userService.getById(3);
+        System.out.println(userServiceById);
     }
 }

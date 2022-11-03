@@ -10,11 +10,9 @@ import com.miao.domain.User;
 import com.miao.mapper.UserMapper;
 import com.miao.service.AdminService;
 import com.miao.util.ResultUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,5 +63,20 @@ public class AdminServiceImpl implements AdminService {
     public BaseResponse<Long> deleteUserById(Long userId) {
         userMapper.deleteById(userId);
         return ResultUtil.success(userId);
+    }
+
+    @Override
+    public BaseResponse<List<User>> listUserBasicInfo() {
+        List<User> users = userMapper.selectList(new QueryWrapper<>());
+        List<User> basicUsers = users.stream().map(this::getBasicUser).collect(Collectors.toList());
+        return ResultUtil.success(basicUsers);
+    }
+    private User getBasicUser(User user ){
+        User basicUser = new User();
+        basicUser.setUserName(user.getUserName());
+        basicUser.setAvatarUrl(user.getAvatarUrl());
+        basicUser.setCreateTime(user.getCreateTime());
+        basicUser.setSchool(user.getSchool());
+        return basicUser;
     }
 }

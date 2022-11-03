@@ -2,6 +2,8 @@ package com.miao.DTO;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author Dhx_
  * @className TopicDTO
@@ -29,5 +31,14 @@ public class TopicDTO {
      * 作者名称
      */
     private String author;
+    /**
+     * 帖子的创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 用户基本信息
+     */
+    private UserDTO userDTO;
 }
 

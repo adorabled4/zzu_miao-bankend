@@ -1,17 +1,13 @@
 package com.miao.service.impl;
 
-import ch.qos.logback.core.util.FileUtil;
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.CollStreamUtil;
-import cn.hutool.core.lang.UUID;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.miao.DTO.AnimalDTO;
 import com.miao.DTO.TopicDTO;
 import com.miao.DTO.UserDTO;
 import com.miao.Exception.BusinessException;
 import com.miao.common.BaseResponse;
 import com.miao.common.ErrorCode;
-import com.miao.constant.RedisConstant;
-import com.miao.constant.SystemConstant;
 import com.miao.domain.Animal;
 import com.miao.domain.Topic;
 import com.miao.domain.User;
@@ -23,32 +19,18 @@ import com.miao.util.CosClientUtil;
 import com.miao.util.MyFileUtil;
 import com.miao.util.ResultUtil;
 import com.miao.util.UserHolder;
-import com.qcloud.cos.COSClient;
-import com.qcloud.cos.ClientConfig;
-import com.qcloud.cos.auth.BasicCOSCredentials;
-import com.qcloud.cos.auth.COSCredentials;
-import com.qcloud.cos.http.HttpProtocol;
-import com.qcloud.cos.region.Region;
-import com.qcloud.cos.transfer.Upload;
-import jodd.cache.FIFOCache;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
-import java.io.*;
-import java.text.DecimalFormat;
-import java.util.Collection;
-import java.util.Iterator;
+import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
+import static com.miao.constant.RedisConstant.LOGIN_TOKEN_KEY;
 import static com.miao.constant.RedisConstant.TOPIC_TAG_KEY;
 
 /**
@@ -67,6 +49,8 @@ public class UploadServiceImpl implements UploadService {
     CosClientUtil cosClientUtil;
 
     @Resource
+    UploadService uploadService;
+    @Resource
     StringRedisTemplate stringRedisTemplate;
 
     @Resource
@@ -76,7 +60,7 @@ public class UploadServiceImpl implements UploadService {
     TopicMapper topicMapper;
 
     /**
-     * 上传动物的图片
+     * 发布动物信息
      * @param images
      * @return 返回图片url 数组地址
      */
@@ -97,7 +81,7 @@ public class UploadServiceImpl implements UploadService {
      * @return 返回success
      */
     @Override
-    public BaseResponse<String> uploadAvatar(MultipartFile image) {
+    public BaseResponse<String> uploadAvatar(MultipartFile image,HttpServletRequest request) {
         if(image==null){
             throw new BusinessException(ErrorCode.PARAMS_ERROR,"没有上传图片!");
         }
@@ -121,17 +105,32 @@ public class UploadServiceImpl implements UploadService {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "图片上传失败");
         }
         user.setAvatarUrl(avatarUrl);
-//    6. 保存更新的数据到数据库
+//    6. 更新redis中保存的userDTO
+        userDTO = BeanUtil.copyProperties(user, UserDTO.class);
+        //1. 获取请求头中的token
+        String token = request.getHeader("authorization");
+        //2. 拼接key
+        String key= LOGIN_TOKEN_KEY + token;
+        //3. bean to map
+        Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(),
+                new CopyOptions().ignoreNullValue()
+                        .setFieldValueEditor((fieldName, fieldValue) -> fieldValue.toString()));
+        //4. 保存新的userDTO
+        UserHolder.saveUser(userDTO);
+        stringRedisTemplate.opsForHash().putAll(key,userMap);
+//    7. 保存更新的数据到数据库
         userMapper.updateById(user);
-//    7. 返回
+//    8. 返回
         return ResultUtil.success("上传成功！");
     }
+
+
 
 
     /**
      * 上传帖子, 帖子的图片已经内置在里面了
      * @param topicDTO
-     * @return
+     * @return 上传成功
      */
     @Override
     public BaseResponse<String> uploadTopic(TopicDTO topicDTO) {
@@ -146,16 +145,8 @@ public class UploadServiceImpl implements UploadService {
         return ResultUtil.success("上传成功！");
     }
 
-    /**
-     * 上传图片
-     * @param image 需要上传的图片
-     * @return 返回url
-     */
-    @Override
-    public BaseResponse<String> uploadTopicPicTure(MultipartFile image) {
-        String url = uploadFile(CosClientUtil.TOPIC_FILE, image);
-        return ResultUtil.success(url);
-    }
+
+
 
     /**
      * 上传图片

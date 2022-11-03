@@ -1,18 +1,20 @@
 package com.miao.DTO;
 
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Dhx_
  * @className AnimalDTO
- * @description TODO
+ * @description
  * @date 2022/10/26 9:20
  */
 @Data
-public class AnimalDTO {
+
+public class AnimalDTO implements Serializable {
+
     private Long animalId;
 
     /**

@@ -12,6 +12,7 @@ import com.miao.mapper.UserMapper;
 import com.miao.util.CosClientUtil;
 import com.miao.util.MyFileUtil;
 import com.miao.util.ResultUtil;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,7 @@ import java.util.Map;
 @RequestMapping("/test")
 @Controller
 @Slf4j
+@Api(hidden = true)
 public class TestController {
     @Resource
     TopicMapper topicMapper;

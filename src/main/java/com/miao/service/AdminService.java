@@ -18,4 +18,6 @@ public interface AdminService {
     BaseResponse<List<UserDTO>> list();
 
     BaseResponse<Long> deleteUserById(Long id);
+
+    BaseResponse<List<User>> listUserBasicInfo();
 }

@@ -34,6 +34,11 @@ public class Comment implements Serializable {
     private String commentContent;
 
     /**
+     * 评论的楼层
+     */
+    private Long floor;
+
+    /**
      * 点赞数
      */
     private Integer likeCount;

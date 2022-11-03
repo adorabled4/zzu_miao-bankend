@@ -3,11 +3,13 @@ package com.miao.controller;
 import com.miao.DTO.AnimalDTO;
 import com.miao.DTO.TopicDTO;
 import com.miao.common.BaseResponse;
-import com.miao.domain.Animal;
-import com.miao.domain.Topic;
 import com.miao.service.UploadService;
 import com.miao.util.CosClientUtil;
-import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -21,6 +23,7 @@ import java.util.Map;
  * @description TODO
  * @date 2022/10/25 17:19
  */
+@Slf4j
 @RestController
 @RequestMapping("/upload")
 public class UploadController {
@@ -40,17 +43,17 @@ public class UploadController {
 
     /**
      * 上传用户头像
-     * @param avatar
-     * @return
+     * @param avatar 头像文件
+     * @return 返回上传成功
      */
     @PostMapping("/user")
-    public BaseResponse<String> uploadAvatar(@RequestParam("file")MultipartFile avatar) {
-        return uploadService.uploadAvatar(avatar);
+    public BaseResponse<String> uploadAvatar(@RequestParam("file")MultipartFile avatar,HttpServletRequest request) {
+        return uploadService.uploadAvatar(avatar,request);
     }
 
     /**
      * 上传帖子
-     * @param topicDTO
+     * @param topicDTO 帖子对象
      * @return
      */
     @PostMapping("/topic")
@@ -66,8 +69,11 @@ public class UploadController {
     @PostMapping("/file")
     public Object uploadTopicPicTure(@RequestParam(value = "file")MultipartFile image){
         String url = uploadService.uploadFile(CosClientUtil.TOPIC_FILE, image);
+        System.out.println("picture url :"+url);
+        log.info("/uploadTopicPicTure");
         Map<String, String> map = new HashMap<>();
         map.put("location",url);
         return map;
     }
+
 }

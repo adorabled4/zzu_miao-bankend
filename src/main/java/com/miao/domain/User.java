@@ -35,10 +35,6 @@ public class User implements Serializable {
      */
     private String userPassword;
 
-    /**
-     * 学号
-     */
-    private String stuCode;
 
     /**
      * 学校
@@ -65,10 +61,6 @@ public class User implements Serializable {
      */
     private String email;
 
-    /**
-     * 用户状态
-     */
-    private Integer userStatus;
 
     /**
      * 注册时间
@@ -103,12 +95,12 @@ public class User implements Serializable {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getIsAdmin() == user.getIsAdmin() && Objects.equals(getUserId(), user.getUserId()) && Objects.equals(getUserName(), user.getUserName()) && Objects.equals(getUserAccount(), user.getUserAccount()) && Objects.equals(getUserPassword(), user.getUserPassword()) && Objects.equals(getStuCode(), user.getStuCode()) && Objects.equals(getSchool(), user.getSchool()) && Objects.equals(getAvatarUrl(), user.getAvatarUrl()) && Objects.equals(getGender(), user.getGender()) && Objects.equals(getPhone(), user.getPhone()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getUserStatus(), user.getUserStatus()) && Objects.equals(getCreateTime(), user.getCreateTime()) && Objects.equals(getUpdateTime(), user.getUpdateTime()) && Objects.equals(getIsDelete(), user.getIsDelete());
+        return getIsAdmin() == user.getIsAdmin() && Objects.equals(getUserId(), user.getUserId()) && Objects.equals(getUserName(), user.getUserName()) && Objects.equals(getUserAccount(), user.getUserAccount()) && Objects.equals(getUserPassword(), user.getUserPassword())  && Objects.equals(getSchool(), user.getSchool()) && Objects.equals(getAvatarUrl(), user.getAvatarUrl()) && Objects.equals(getGender(), user.getGender()) && Objects.equals(getPhone(), user.getPhone()) && Objects.equals(getEmail(), user.getEmail())  && Objects.equals(getCreateTime(), user.getCreateTime()) && Objects.equals(getUpdateTime(), user.getUpdateTime()) && Objects.equals(getIsDelete(), user.getIsDelete());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUserId(), getUserName(), getUserAccount(), getUserPassword(), getStuCode(), getSchool(), getAvatarUrl(), getGender(), getPhone(), getEmail(), getUserStatus(), getCreateTime(), getUpdateTime(), getIsAdmin(), getIsDelete());
+        return Objects.hash(getUserId(), getUserName(), getUserAccount(), getUserPassword(), getSchool(), getAvatarUrl(), getGender(), getPhone(), getEmail(), getCreateTime(), getUpdateTime(), getIsAdmin(), getIsDelete());
     }
 
     @Override
@@ -121,13 +113,11 @@ public class User implements Serializable {
         sb.append(", userName=").append(userName);
         sb.append(", userAccount=").append(userAccount);
         sb.append(", userPassword=").append(userPassword);
-        sb.append(", stuCode=").append(stuCode);
         sb.append(", school=").append(school);
         sb.append(", avatarUrl=").append(avatarUrl);
         sb.append(", gender=").append(gender);
         sb.append(", phone=").append(phone);
         sb.append(", email=").append(email);
-        sb.append(", userStatus=").append(userStatus);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", isDelete=").append(isDelete);

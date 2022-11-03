@@ -1,6 +1,7 @@
 package com.miao.DTO;
 
 import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -20,5 +21,4 @@ public class UserRegisterDTO implements Serializable {
 
     private String checkPassword;
 
-    private String stuCode;
 }
