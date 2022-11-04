@@ -25,10 +25,6 @@ public class Topic implements Serializable {
      */
     private Long userId;
 
-//    /**
-//     * 标签id
-//     */
-//    private Long tagId;
 
     /**
      * 帖子标题
@@ -40,10 +36,6 @@ public class Topic implements Serializable {
      */
     private String topicContent;
 
-//    /**
-//     * 帖子内的图片
-//     */
-//    private String pictureUrls;
     /**
      * 评论总数
      */

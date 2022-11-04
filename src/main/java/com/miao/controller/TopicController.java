@@ -1,14 +1,13 @@
 package com.miao.controller;
 
+import com.miao.DTO.CommentDTO;
 import com.miao.DTO.TopicDTO;
 import com.miao.common.BaseResponse;
 import com.miao.service.TopicService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Dhx_
@@ -22,11 +21,23 @@ public class TopicController {
 
     @Resource
     TopicService topicService;
-    @GetMapping("{id}")
-    public BaseResponse<TopicDTO> getTopicInfo(@PathVariable("id")Long topicId){
+
+    @GetMapping("/{id}")
+    public BaseResponse<TopicDTO> queryTopicInfoById(@PathVariable("id")Long topicId){
         return topicService.queryTopicById(topicId);
     }
 
+
+    @PutMapping("/{id}")
+    public BaseResponse<List<CommentDTO>> queryTopicCommentsById(@PathVariable("id")Long topicId){
+        return topicService.queryTopicCommentsById(topicId);
+    }
+
+
+    @PostMapping("/list")
+    public BaseResponse<List<TopicDTO>> queryTopicList(){
+        return topicService.queryTopicList();
+    }
 
 
 }

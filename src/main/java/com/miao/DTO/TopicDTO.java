@@ -14,7 +14,7 @@ import java.util.Date;
  * @date 2022/10/26 20:58
  */
 @Data
-@ApiModel("帖子基本信息")
+@ApiModel("帖子信息")
 public class TopicDTO  implements Serializable {
     private static final long serialVersionUID = -7084793452966045615L;
 
@@ -33,14 +33,34 @@ public class TopicDTO  implements Serializable {
     /**
      * 标签
      */
-    @ApiModelProperty(value = "帖子的标签",required = false)
+    @ApiModelProperty(value = "帖子的标签(多个,使用','拼接 )",required = false)
     private String tags;
 
+//    /**
+//     * 作者名称 => 已经在userDTO中存储了
+//     */
+//    @ApiModelProperty(value = "帖子的作者的名称",required = false)
+//    private String author;
+
+
     /**
-     * 作者名称
+     * 评论总数
      */
-    @ApiModelProperty(value = "帖子的作者的名称",required = false)
-    private String author;
+    @ApiModelProperty(value = "评论个数",required = false)
+    private Long commentCount;
+
+    /**
+     * 点赞总数
+     */
+    @ApiModelProperty(value = "点赞个数",required = false)
+    private Long likeCount;
+
+    /**
+     * 是否精选
+     */
+    @ApiModelProperty(value = "是否精选",required = false)
+    private Integer isSelected;
+
     /**
      * 帖子的创建时间
      */
@@ -52,5 +72,6 @@ public class TopicDTO  implements Serializable {
      */
     @ApiModelProperty(value = "发布的用户的基本信息",required = false)
     private UserDTO userDTO;
+
 }
 

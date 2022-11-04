@@ -15,10 +15,7 @@ import com.miao.mapper.AnimalMapper;
 import com.miao.mapper.TopicMapper;
 import com.miao.mapper.UserMapper;
 import com.miao.service.UploadService;
-import com.miao.util.CosClientUtil;
-import com.miao.util.MyFileUtil;
-import com.miao.util.ResultUtil;
-import com.miao.util.UserHolder;
+import com.miao.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -125,8 +122,6 @@ public class UploadServiceImpl implements UploadService {
     }
 
 
-
-
     /**
      * 上传帖子, 帖子的图片已经内置在里面了
      * @param topicDTO
@@ -134,18 +129,22 @@ public class UploadServiceImpl implements UploadService {
      */
     @Override
     public BaseResponse<String> uploadTopic(TopicDTO topicDTO) {
+        // 敏感词过滤
+        String filteredContent = SensitiveWordFilterUtil.filter(topicDTO.getTopicContent());
+        String filteredTitle = SensitiveWordFilterUtil.filter(topicDTO.getTopicTitle());
+        topicDTO.setTopicContent(filteredContent);
+        topicDTO.setTopicTitle(filteredTitle);
         Long userId= UserHolder.getUser().getUserId();
         Topic topic = BeanUtil.copyProperties(topicDTO, Topic.class);
         topic.setUserId(userId);
         int insert = topicMapper.insert(topic);
+
         String tags= topicDTO.getTags();
         if(StringUtils.isNotBlank(tags)){
             stringRedisTemplate.opsForValue().set(TOPIC_TAG_KEY + topic.getTopicId(), tags);
         }
         return ResultUtil.success("上传成功！");
     }
-
-
 
 
     /**

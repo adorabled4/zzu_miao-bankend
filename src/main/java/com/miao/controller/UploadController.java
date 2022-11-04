@@ -5,6 +5,9 @@ import com.miao.DTO.TopicDTO;
 import com.miao.common.BaseResponse;
 import com.miao.service.UploadService;
 import com.miao.util.CosClientUtil;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +40,7 @@ public class UploadController {
      * @return 直接返回拼接好的url
      */
     @PostMapping("/animal")
+    @ApiResponses({@ApiResponse(code=200,message = "动物发布成功",response = java.lang.String.class)})
     public BaseResponse<String> uploadAnimal(@RequestParam("file")MultipartFile[] images, AnimalDTO animalDTO) {
         return uploadService.uploadAnimal(images,animalDTO);
     }
@@ -47,6 +51,7 @@ public class UploadController {
      * @return 返回上传成功
      */
     @PostMapping("/user")
+    @ApiResponses({@ApiResponse(code=200,message = "头像上传成功",response = java.lang.String.class)})
     public BaseResponse<String> uploadAvatar(@RequestParam("file")MultipartFile avatar,HttpServletRequest request) {
         return uploadService.uploadAvatar(avatar,request);
     }
@@ -54,9 +59,10 @@ public class UploadController {
     /**
      * 上传帖子
      * @param topicDTO 帖子对象
-     * @return
+     * @return 返回上传成功
      */
     @PostMapping("/topic")
+    @ApiResponses({@ApiResponse(code=200,message = "上传成功",response = java.lang.String.class)})
     public BaseResponse<String> uploadTopic(TopicDTO topicDTO) {
         return uploadService.uploadTopic(topicDTO);
     }
@@ -67,6 +73,8 @@ public class UploadController {
      * @return 返回json对象
      */
     @PostMapping("/file")
+    @ApiOperation("用于富文本编辑器自动上传图片")
+    @ApiResponses({@ApiResponse(code=200,message = "图片url",response = java.lang.String.class)})
     public Object uploadTopicPicTure(@RequestParam(value = "file")MultipartFile image){
         String url = uploadService.uploadFile(CosClientUtil.TOPIC_FILE, image);
         System.out.println("picture url :"+url);
