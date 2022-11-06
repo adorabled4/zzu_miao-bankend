@@ -48,6 +48,12 @@ public class TopicController {
             @RequestParam( name= "current" ,defaultValue = "1") @ApiParam(defaultValue = "1",required = true) Integer current){
         return topicService.queryTopicList(current);
     }
+    @PutMapping("/like/{id}")
+    @ApiOperation("点赞/取消点赞")
+    @ApiResponse(code=200,message ="操作成功")
+    public BaseResponse<String> likeComment(@PathVariable("id")Long topicId){
+        return topicService.likeTopic(topicId);
+    }
 
 
 }

@@ -23,4 +23,8 @@ public class RedisConstant {
     public static final String FOLLOW_ANIMAL_KEY = "follow:animal:";
     public static final String FOLLOW_USER_KEY = "follow:user:";
 
+    public static final String LIKE_COMMENT_KEY = "like:comment:";
+
+    public static final String LIKE_TOPIC_KEY = "like:comment:";
+
 }

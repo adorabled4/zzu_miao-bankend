@@ -29,6 +29,11 @@ public class FollowController {
     public BaseResponse<String> followAnimal(@PathVariable("id") Long followAnimalId, @PathVariable("isFollow") Boolean isFollow) {
         return followService.followAnimal(followAnimalId, isFollow);
     }
+    @GetMapping("/commons/{id}")
+    @ApiOperation("查看共同关注的动物") // @RequestParam("type")
+    public BaseResponse<List<AnimalDTO>> followCommonAnimals(@PathVariable("id") Long userId){
+        return followService.followCommonAnimals(userId);
+    }
 
     @PutMapping("/user/{id}/{isFollow}")
     @ApiOperation("关注/取关 用户")
@@ -46,8 +51,5 @@ public class FollowController {
         return followService.isFollow(objectId,type);
     }
 
-    @GetMapping("/commons/{id}")
-    public BaseResponse<List<AnimalDTO>> followCommonAnimals(@PathVariable("id") Long userId){
-        return followService.followCommonAnimals(userId);
-    }
+
 }

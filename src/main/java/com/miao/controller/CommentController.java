@@ -5,10 +5,7 @@ import com.miao.domain.Comment;
 import com.miao.service.CommentService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -30,6 +27,26 @@ public class CommentController {
     public BaseResponse<String> releaseComment(@PathVariable("id")Long topicId , Comment comment){
         return commentService.releaseComment(topicId,comment);
     }
+    @PutMapping("/like/{id}")
+    @ApiOperation("点赞/取消点赞")
+    @ApiResponse(code=200,message ="操作成功")
+    public BaseResponse<String> likeComment(@PathVariable("id")Long commentId ){
+        return commentService.likeComment(commentId);
+    }
+
+//    /**
+//     * 查看点赞列表
+//     * @param id
+//     * @return
+//     */
+//    @GetMapping("/likes/{id}")
+//    @ApiOperation("查看帖子的点赞列表")
+//    @ApiResponse(code=200,message ="操作成功")
+//    public BaseResponse<String> queryBlogLikes(@PathVariable("id")Long id){
+//        return commentService.queryCommentLikes(id);
+//    }
+
+
 //
 //    @PostMapping("/comment/{id}")
 //    public BaseResponse replyComment(@PathVariable("id")Long repliedCommentId ,Comment comment){
