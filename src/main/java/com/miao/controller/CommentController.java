@@ -21,11 +21,11 @@ public class CommentController {
     @Resource
     CommentService commentService;
 
-    @PostMapping("/topic/{id}")
+    @PostMapping("/topic")
     @ApiOperation("发布评论")
     @ApiResponse(code=200,message = "评论成功")
-    public BaseResponse<String> releaseComment(@PathVariable("id")Long topicId , Comment comment){
-        return commentService.releaseComment(topicId,comment);
+    public BaseResponse<String> releaseComment(@RequestBody Comment comment){
+        return commentService.releaseComment(comment);
     }
     @PutMapping("/like/{id}")
     @ApiOperation("点赞/取消点赞")

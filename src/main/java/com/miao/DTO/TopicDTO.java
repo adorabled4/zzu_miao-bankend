@@ -73,5 +73,10 @@ public class TopicDTO  implements Serializable {
     @ApiModelProperty(value = "发布的用户的基本信息",required = false)
     private UserDTO userDTO;
 
+    /**
+     * 是否点赞
+     */
+    @ApiModelProperty(value = "是否点赞了",required = false)
+    private Boolean isLike;
 }
 

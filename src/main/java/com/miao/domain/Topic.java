@@ -57,6 +57,13 @@ public class Topic implements Serializable {
     private Date createTime;
 
     /**
+     * 是否点赞了
+     */
+    @TableField(exist = false)
+    private Boolean isLike;
+
+
+    /**
      * 逻辑删除 1表示删除
      */
     @TableLogic

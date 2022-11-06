@@ -58,6 +58,12 @@ public class Animal implements Serializable {
     private Long followCount;
 
     /**
+     * 当前用户是否关注动物
+     */
+    @TableField(exist = false)
+    private Boolean isFollow;
+
+    /**
      * 
      */
     private Date createTime;

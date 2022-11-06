@@ -98,7 +98,7 @@ class ZzuMiaoApplicationTests {
         Comment comment=new Comment();
         comment.setUserId(1L);
         comment.setLikeCount(0);
-        comment.setRepliedId(15L);
+        comment.setTopicId(15L);
         comment.setCommentContent("这是一个评论!!!!!!!");
         commentService.save(comment);
         System.out.println(comment.getCommentId());

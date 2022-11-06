@@ -57,4 +57,10 @@ public class CommentDTO implements Serializable {
      */
     @ApiModelProperty(value = "评论的楼层",required = false)
     private Long floor;
+
+    /**
+     * 是否点赞
+     */
+    @ApiModelProperty(value = "是否点赞了",required = false)
+    private Boolean isLike;
 }

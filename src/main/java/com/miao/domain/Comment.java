@@ -1,6 +1,8 @@
 package com.miao.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,6 +14,7 @@ import java.util.Date;
  */
 @TableName(value ="t_comment")
 @Data
+@ApiModel
 public class Comment implements Serializable {
     /**
      * 
@@ -22,7 +25,8 @@ public class Comment implements Serializable {
     /**
      * 回复的 帖子id / 评论id
      */
-    private Long repliedId;
+    @ApiModelProperty(value = "回复的帖子的id",required = true)
+    private Long topicId;
 
     /**
      *  发布的用户的id
@@ -31,6 +35,7 @@ public class Comment implements Serializable {
     /**
      * 评论内容, 注意这个不能为空
      */
+    @ApiModelProperty(value = "评论的内容",required = true)
     private String commentContent;
 
     /**
@@ -54,6 +59,13 @@ public class Comment implements Serializable {
     private Date updateTime;
 
     /**
+     * 是否点赞了
+     */
+    @TableField(exist = false)
+    private Boolean isLike;
+
+
+    /**
      * 逻辑删除 1表示删除
      */
     @TableLogic
@@ -75,7 +87,7 @@ public class Comment implements Serializable {
         }
         Comment other = (Comment) that;
         return (this.getCommentId() == null ? other.getCommentId() == null : this.getCommentId().equals(other.getCommentId()))
-            && (this.getRepliedId() == null ? other.getRepliedId() == null : this.getRepliedId().equals(other.getRepliedId()))
+            && (this.getTopicId() == null ? other.getTopicId() == null : this.getTopicId().equals(other.getTopicId()))
             && (this.getCommentContent() == null ? other.getCommentContent() == null : this.getCommentContent().equals(other.getCommentContent()))
             && (this.getLikeCount() == null ? other.getLikeCount() == null : this.getLikeCount().equals(other.getLikeCount()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -88,7 +100,7 @@ public class Comment implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getCommentId() == null) ? 0 : getCommentId().hashCode());
-        result = prime * result + ((getRepliedId() == null) ? 0 : getRepliedId().hashCode());
+        result = prime * result + ((getTopicId() == null) ? 0 : getTopicId().hashCode());
         result = prime * result + ((getCommentContent() == null) ? 0 : getCommentContent().hashCode());
         result = prime * result + ((getLikeCount() == null) ? 0 : getLikeCount().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -104,7 +116,7 @@ public class Comment implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", commentId=").append(commentId);
-        sb.append(", repliedId=").append(repliedId);
+        sb.append(", repliedId=").append(topicId);
         sb.append(", commentContent=").append(commentContent);
         sb.append(", likeCount=").append(likeCount);
         sb.append(", createTime=").append(createTime);

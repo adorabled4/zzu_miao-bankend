@@ -1,5 +1,6 @@
 package com.miao.DTO;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -73,5 +74,12 @@ public class AnimalDTO implements Serializable {
      */
     @ApiModelProperty(value = "发布时间",required = false)
     private Date createTime;
+
+    /**
+     * 当前用户是否关注动物
+     */
+    @TableField(exist = false)
+    @ApiModelProperty(value = "当前用户是否关注动物",required = false)
+    private Boolean isFollow;
 
 }
