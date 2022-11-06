@@ -15,4 +15,10 @@ public class SystemConstant {
      * 表示 关注的类型, 2为user
      */
     public static final Integer FOLLOW_USER =2 ;
+
+    public static final Integer ANIMAL_PAGE_SIZE =5;
+
+    public static final Integer COMMENT_PAGE_SIZE= 15;
+
+    public static final Integer TOPIC_PAGE_SIZE =10;
 }

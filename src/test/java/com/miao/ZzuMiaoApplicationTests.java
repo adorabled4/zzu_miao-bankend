@@ -1,6 +1,7 @@
 package com.miao;
 
 import cn.hutool.core.lang.UUID;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.miao.domain.Comment;
 import com.miao.domain.User;
 import com.miao.sensitivewdfilter.WordFilter;
@@ -140,4 +141,55 @@ class ZzuMiaoApplicationTests {
         System.out.println((int)('ｆ'));
     }
 
+    @Test
+    public void testPage(){
+        //    @Override
+//    public Result queryHotBlog(Integer current) {
+//        // 根据用户查询
+//        Page<Blog> page = this.query()
+//                .orderByDesc("liked")
+//                .page(new Page<>(current, SystemConstants.MAX_PAGE_SIZE));
+//        // 获取当前页数据
+//        List<Blog> records = page.getRecords();
+//        // 查询用户
+//        records.forEach(blog -> {
+//            queryBlogUser(blog);
+//            isBlogLiked(blog);
+//        });
+//        return Result.ok(page);
+//    }
+        String userName ="d";
+        Page<User> page= userService.query().like("user_name", userName).page(new Page<>(1, 3));
+        List<User> records = page.getRecords(); // 所有的数据
+        System.out.println(page.getCurrent());   // 当前页码
+        System.out.println("---------------------------------------------------------------------------------------------------------------------");
+        for (User record : records) {
+            record.setUserName("test_userName");
+        }
+        System.out.println(page.getCurrent());   // 当前页码
+    }
+
+    @Test
+    public void testPageQuery(){
+        Page<User> page = userService.query()
+                .like("user_name","i")
+                .orderByDesc("create_time")
+                .page(new Page<>(3,8));
+        page.getRecords().forEach(System.out::println);
+    }
+    @Test
+    public void testInputRedis(){
+        for (int i = 1; i <=100; i++) {
+            stringRedisTemplate.opsForSet().add("topic:comment:1", String.valueOf(i));
+        }
+    }
+
+
+    @Test
+    public void testSetUserId(){
+        for (Comment comment : commentService.query().list()) {
+            comment.setUserId(51L);
+        }
+
+    }
 }

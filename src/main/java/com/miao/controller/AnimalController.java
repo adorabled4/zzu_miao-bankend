@@ -4,6 +4,7 @@ import com.miao.DTO.AnimalDTO;
 import com.miao.common.BaseResponse;
 import com.miao.service.AnimalService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -24,8 +25,10 @@ public class AnimalController {
 
     @GetMapping("/list")
     @ApiOperation("查询动物基本信息列表")
-    public BaseResponse<List<AnimalDTO>> queryAnimals(){
-        return animalService.queryAnimals();
+    public BaseResponse<List<AnimalDTO>> queryAnimals(
+            @RequestParam(name = "current",defaultValue = "1")
+            @ApiParam(defaultValue = "1",required = true) Integer current){
+        return animalService.queryAnimals(current);
     }
 //获取动物详细信息
 
@@ -39,13 +42,16 @@ public class AnimalController {
 
     @GetMapping("/name")
     @ApiOperation("根据名称查询动物列表")
-    public BaseResponse<List<AnimalDTO>>  searchAnimalByName(String animalName){
-        return animalService.searchAnimalByName(animalName);
+    public BaseResponse<List<AnimalDTO>>  searchAnimalByName(String animalName,
+                            @RequestParam( name= "current" ,defaultValue = "1") @ApiParam(defaultValue = "1",required = true) Integer current){
+        return animalService.searchAnimalByName(animalName,current);
     }
 
     @GetMapping("/species")
     @ApiOperation("根据物种查询动物列表")
-    public BaseResponse<List<AnimalDTO> > searchAnimalBySpecies(String animalName){
-        return animalService.searchAnimalBySpecies(animalName);
+    public BaseResponse<List<AnimalDTO> > searchAnimalBySpecies(String animalName,
+                            @RequestParam( name= "current" ,defaultValue = "1") @ApiParam(defaultValue = "1",required = true) Integer current){
+
+        return animalService.searchAnimalBySpecies(animalName,current);
     }
 }

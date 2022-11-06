@@ -18,8 +18,8 @@ public class RedisConstant {
     public static final String LOCK_SHOP_KEY = "lock:shop:";
     public static final Long CACHE_SHOP_TTL = 30L;
     public static final Long LOCK_SHOP_TTL = 10L;
-    public static final String TOPIC_COMMENT_KEY = "topic:comment";
-    public static final String REPLY_COMMENT_KEY = "reply:comment";
+    public static final String TOPIC_COMMENT_KEY = "topic:comment:";
+    public static final String REPLY_COMMENT_KEY = "reply:comment:";
     public static final String FOLLOW_ANIMAL_KEY = "follow:animal:";
     public static final String FOLLOW_USER_KEY = "follow:user:";
 

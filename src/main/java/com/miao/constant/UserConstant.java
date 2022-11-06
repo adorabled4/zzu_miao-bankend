@@ -8,6 +8,7 @@ package com.miao.constant;
  */
 public class UserConstant {
     public static final String PASSWORD_SALT = "dhx_ 666";
+    public static final int USER_PAGE_SIZE = 5;
 
 
     /**

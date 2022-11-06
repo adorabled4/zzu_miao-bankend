@@ -4,10 +4,7 @@ import com.miao.DTO.CommentDTO;
 import com.miao.DTO.TopicDTO;
 import com.miao.common.BaseResponse;
 import com.miao.service.TopicService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -38,16 +35,18 @@ public class TopicController {
     @PutMapping("/{id}")
     @ApiOperation("查询评论列表")
     @ApiResponses({@ApiResponse(code=200,message = "评论List" )})
-    public BaseResponse<List<CommentDTO>> queryTopicCommentsById(@PathVariable("id")Long topicId){
-        return topicService.queryTopicCommentsById(topicId);
+    public BaseResponse<List<CommentDTO>> queryTopicCommentsById(@PathVariable("id")Long topicId,
+                        @RequestParam( name= "current" ,defaultValue = "1") @ApiParam(defaultValue = "1",required = true) Integer current){
+        return topicService.queryTopicCommentsById(topicId,current);
     }
 
 
     @PostMapping("/list")
     @ApiOperation("查询帖子列表")
     @ApiResponses({@ApiResponse(code=200,message = "帖子List" )})
-    public BaseResponse<List<TopicDTO>> queryTopicList(){
-        return topicService.queryTopicList();
+    public BaseResponse<List<TopicDTO>> queryTopicList(
+            @RequestParam( name= "current" ,defaultValue = "1") @ApiParam(defaultValue = "1",required = true) Integer current){
+        return topicService.queryTopicList(current);
     }
 
 

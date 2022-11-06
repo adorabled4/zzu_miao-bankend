@@ -9,10 +9,10 @@ import com.miao.service.UserService;
 import com.miao.util.ResultUtil;
 import com.miao.util.UserHolder;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,8 +33,6 @@ public class UserController {
     @Resource
     UserService userService;
 
-    @Resource
-    StringRedisTemplate stringRedisTemplate;
     /**
      * 发送验证码
      * @param phone 手机号
@@ -111,8 +109,10 @@ public class UserController {
     @GetMapping("/search")
     @ApiOperation("根据关键词查询用户")
     @ApiResponses({@ApiResponse(code=200,message = "用户基本信息列表")})
-    public BaseResponse<List<UserDTO>> searchUsers(@RequestParam("username")String userName){
-        return userService.searchUsers(userName);
+    public BaseResponse<List<UserDTO>> searchUsers(
+            @RequestParam("username")String userName,
+            @RequestParam(value = "current", defaultValue = "1") @ApiParam(defaultValue = "1",required = true) Integer current){
+        return userService.searchUsers(userName,current);
     }
 
     /**
