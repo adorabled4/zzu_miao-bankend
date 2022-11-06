@@ -9,6 +9,8 @@ import com.miao.service.UserService;
 import com.miao.util.ResultUtil;
 import com.miao.util.UserHolder;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -108,6 +110,7 @@ public class UserController {
      */
     @GetMapping("/search")
     @ApiOperation("根据关键词查询用户")
+    @ApiResponses({@ApiResponse(code=200,message = "用户基本信息列表")})
     public BaseResponse<List<UserDTO>> searchUsers(@RequestParam("username")String userName){
         return userService.searchUsers(userName);
     }
@@ -119,7 +122,8 @@ public class UserController {
      */
     @PostMapping("/logout")
     @ApiOperation("退出登录")
-    public BaseResponse<Long> logout(HttpServletRequest request){
+    @ApiResponses({@ApiResponse(code=200,message = "退出成功")})
+    public BaseResponse<String> logout(HttpServletRequest request){
         return userService.logout(request);
     }
 
@@ -137,10 +141,11 @@ public class UserController {
     /**
      * 编辑资料, 不允许编辑 account
      * @param userUpdateDTO  包含了用户编辑信息的参数
-     * @return 返回用户的账户
+     * @return 修改成功
      */
     @PostMapping("/updateUserInfo")
     @ApiOperation("修改用户信息")
+    @ApiResponses({@ApiResponse(code=200,message = "修改成功")})
     public BaseResponse<String> updateUserInfo(UserUpdateDTO userUpdateDTO){
         return userService.updateUserInfo(userUpdateDTO);
     }

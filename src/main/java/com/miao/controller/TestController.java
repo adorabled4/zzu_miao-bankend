@@ -54,7 +54,6 @@ public class TestController {
         TopicDTO topicDTO = BeanUtil.copyProperties(topic, TopicDTO.class);
         Long userId = 1L;
         User user = userMapper.selectById(userId);
-        topicDTO.setAuthor(user.getUserName());
         log.info("帖子标题: {}",topicDTO.getTopicTitle());
         model.addAttribute("topicDTO", topicDTO);
         return "showTopic";
@@ -67,7 +66,6 @@ public class TestController {
         TopicDTO topicDTO = BeanUtil.copyProperties(topic, TopicDTO.class);
         Long userId = 1L;
         User user = userMapper.selectById(userId);
-        topicDTO.setAuthor(user.getUserName());
         log.info("帖子标题: {}",topicDTO.getTopicTitle());
         model.addAttribute("topicDTO", topicDTO);
         return "showTiny";

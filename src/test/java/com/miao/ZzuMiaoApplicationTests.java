@@ -105,7 +105,7 @@ class ZzuMiaoApplicationTests {
 
     @Test
     public void getest(){
-        userService.register("adorabled4","123456qwer","123456qwer");
+        userService.register("ado354able34","123456qwer","123456qwer");
     }
 
     @Test

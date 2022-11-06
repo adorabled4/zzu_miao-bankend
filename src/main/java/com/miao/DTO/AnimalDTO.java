@@ -18,8 +18,6 @@ import java.util.Date;
 public class AnimalDTO implements Serializable {
     private static final long serialVersionUID = -1584653452966045615L;
 
-
-
     @ApiModelProperty(value = "动物id",required = false)
     private Long animalId;
 
@@ -38,8 +36,9 @@ public class AnimalDTO implements Serializable {
     /**
      * 创建者
      */
-    @ApiModelProperty(value = "发布动物的用户的名称",required = false)
-    private String createUserName;
+    @ApiModelProperty(value = "发布动物的用户的基本信息",required = false)
+    private UserDTO userDTO;
+
     /**
      * 动物图片
      */
